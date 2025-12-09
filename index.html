@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Módulo 3 - Regla de Tres en Producción Pecuario</title>
+            <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            color: #1e293b;
+            line-height: 1.7;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .objectives {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 25px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+        }
+        
+        .objectives h2 {
+            color: #3b82f6;
+            margin-bottom: 18px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .objectives ul {
+            list-style-type: none;
+        }
+        
+        .objectives li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            color: #1e293b;
+        }
+        
+        .objectives li:before {
+            content: "✓";
+            color: #3b82f6;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        .module-explanation {
+            background: linear-gradient(135deg, #fef3c7 0%, rgba(254, 243, 199, 0.5) 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 25px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);
+        }
+        
+        .module-explanation h2 {
+            color: #f59e0b;
+            margin-bottom: 18px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .module-explanation p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            color: #1e293b;
+        }
+        
+        .exercise {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .exercise:hover {
+            border-color: #a5b4fc;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        .exercise h3 {
+            color: #6366f1;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #a5b4fc;
+        }
+        
+        .context, .data, .solution {
+            margin-bottom: 20px;
+            padding: 18px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+        }
+        
+        .context strong, .data strong, .solution strong {
+            color: #10b981;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        
+        .questions {
+            margin-top: 20px;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 18px;
+            background-color: #fafbfc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .question p {
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .answer-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1.05em;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: #ffffff;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            background-color: #ffffff;
+        }
+        
+        .button {
+            padding: 14px 32px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            color: white;
+        }
+        
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.3);
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 35px 0;
+        }
+        
+        .results {
+            background: linear-gradient(135deg, #d1fae5 0%, rgba(209, 250, 229, 0.5) 100%);
+            border-left: 4px solid #10b981;
+            padding: 30px;
+            margin-top: 35px;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
+        }
+        
+        .score {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .score-pass {
+            color: #10b981;
+        }
+        
+        .score-fail {
+            color: #ef4444;
+        }
+        
+        .feedback {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 1.15em;
+            line-height: 1.6;
+            color: #1e293b;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.95em;
+        }
+        
+        /* Estilos para MathJax/LaTeX */
+        .MathJax, .MathJax_Display {
+            font-size: 1.1em !important;
+        }
+        
+        mjx-container {
+            margin: 8px 0 !important;
+        }
+        
+        mjx-container[jax="CHTML"][display="true"] {
+            margin: 1em 0 !important;
+        }
+        
+        .math-inline {
+            color: #6366f1;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .button {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+    
+    <!-- MathJax para renderizado LaTeX profesional -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\(', '\)']],
+                displayMath: [['$$', '$$'], ['\[', '\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+            },
+            svg: {
+                fontCache: 'global',
+                scale: 1.1
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Tecnología en Producción Pecuaria Sostenible</h1>
+            <div class="subtitle">Matemáticas - Práctica Módulo 3: Regla de Tres Simple y Compuesta</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="learning-objectives">
+            <h2>Objetivos de Aprendizaje</h2>
+            <ul>
+                <li>Comprender los conceptos de regla de tres simple directa e inversa</li>
+                <li>Aplicar la regla de tres compuesta en problemas de producción pecuaria</li>
+                <li>Identificar situaciones de proporcionalidad directa e inversa</li>
+                <li>Resolver problemas complejos de planificación y gestión en sistemas pecuarios</li>
+            </ul>
+        </div>
+
+        <div class="explanation">
+            <h2>Planteo y Solución de Problemas - Regla de Tres</h2>
+            <p>Este módulo desarrolla competencias para plantear y resolver problemas mediante la regla de tres, una herramienta matemática fundamental que resuelve problemas de proporcionalidad de manera ágil y práctica. Existen varios tipos: regla de tres simple directa (cuando las magnitudes son directamente proporcionales), regla de tres simple inversa (cuando son inversamente proporcionales), y regla de tres compuesta (cuando intervienen tres o más magnitudes).</p>
+            <p>En los sistemas productivos pecuarios sostenibles, estas herramientas son elementos básicos para el diseño, mantenimiento y prospección eficiente de procesos. El módulo desarrolla la capacidad de analizar problemas, identificar el tipo de proporcionalidad, plantear la ecuación correspondiente y resolverla sistemáticamente.</p>
+            <p>Se abordan aplicaciones en cálculo de alimentos, proyecciones de producción, análisis de costos, programación de actividades y optimización de recursos. Los estudiantes aprenderán a traducir problemas del lenguaje natural a planteamientos matemáticos, identificando correctamente las variables y sus relaciones de proporcionalidad.</p>
+        </div>
+
+        <div class="theory-section">
+            <h2>Fundamentos Teóricos</h2>
+            
+            <div class="theory-item">
+                <h3>Regla de Tres Simple Directa</h3>
+                <p>La regla de tres simple directa se utiliza cuando dos magnitudes son <strong>directamente proporcionales</strong>, es decir, cuando una aumenta, la otra también aumenta en la misma proporción.</p>
+                <div class="formula">
+                    <table style="margin: 0 auto;">
+                        <tr>
+                            <td>Magnitud A</td>
+                            <td>Magnitud B</td>
+                        </tr>
+                        <tr>
+                            <td>a₁</td>
+                            <td>b₁</td>
+                        </tr>
+                        <tr>
+                            <td>a₂</td>
+                            <td>x</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="formula">
+                    x = (a₂ × b₁) / a₁
+                </div>
+            </div>
+
+            <div class="theory-item">
+                <h3>Regla de Tres Simple Inversa</h3>
+                <p>Se utiliza cuando dos magnitudes son <strong>inversamente proporcionales</strong>, es decir, cuando una aumenta, la otra disminuye proporcionalmente.</p>
+                <div class="formula">
+                    x = (a₁ × b₁) / a₂
+                </div>
+            </div>
+
+            <div class="theory-item">
+                <h3>Regla de Tres Compuesta</h3>
+                <p>Involucra tres o más magnitudes relacionadas. Puede combinar relaciones directas e inversas.</p>
+                <ol>
+                    <li>Identificar si cada magnitud es directa o inversa respecto a la incógnita</li>
+                    <li>Construir la proporción según corresponda</li>
+                    <li>Resolver la ecuación resultante</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 1: Regla de Tres Simple Directa - Alimentación</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> Si 20 vacas consumen 400 kg de forraje en un día, ¿cuántos kg consumirán 35 vacas?</p>
+                <div class="input-group">
+                    <label for="e1-type">a) Identifique el tipo de regla de tres:</label>
+                    <input type="text" id="e1-type" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e1-proportion">b) Plantee la proporción:</label>
+                    <textarea id="e1-proportion" placeholder="Ej: $\frac{20}{400}$ = 35/x"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e1-result">c) Calcule la cantidad de forraje:</label>
+                    <input type="text" id="e1-result" placeholder="En kg">
+                </div>
+            </div>
+            <div class="exercise-steps">
+                <ol>
+                    <li>Identifique la relación: más vacas → más forraje (DIRECTA)</li>
+                    <li>Plantee la proporción: $\frac{20}{400}$ = 35/x</li>
+                    <li>Calcule: x = ($35 \times 400$) / 20 = 700 kg</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 2: Regla de Tres Simple Inversa - Tiempo de Trabajo</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> 4 trabajadores pueden vacunar un lote de animales en 6 horas. Si se contratan 2 trabajadores más (total 6), ¿cuánto tiempo tardarán?</p>
+                <div class="input-group">
+                    <label for="e2-type">a) Identifique si la relación es directa o inversa:</label>
+                    <input type="text" id="e2-type" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e2-proportion">b) Plantee y resuelva la regla de tres:</label>
+                    <textarea id="e2-proportion" placeholder="Ej: $\frac{4}{6}$ = 6/x"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e2-result">c) Tiempo requerido (en horas):</label>
+                    <input type="text" id="e2-result" placeholder="En horas">
+                </div>
+            </div>
+            <div class="exercise-steps">
+                <ol>
+                    <li>Identifique la relación: más trabajadores → menos tiempo (INVERSA)</li>
+                    <li>Plantee: $\frac{4}{6}$ = 6/x</li>
+                    <li>Resuelva: x = ($4 \times 6$) / 6 = 4 horas</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 3: Regla de Tres Compuesta - Producción de Huevos</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> 100 gallinas producen 2,550 huevos en 30 días. ¿Cuántos huevos producirán 150 gallinas en 45 días?</p>
+                <div class="input-group">
+                    <label for="e3-relations">a) Identifique las relaciones:</label>
+                    <textarea id="e3-relations" placeholder="Ej: Gallinas-Directa, Días-Directa"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e3-proportion">b) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e3-proportion" placeholder="Ej: x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e3-result">c) Cantidad de huevos:</label>
+                    <input type="text" id="e3-result" placeholder="Número de huevos">
+                </div>
+            </div>
+            <div class="exercise-steps">
+                <ol>
+                    <li>Más gallinas → más huevos (DIRECTA)</li>
+                    <li>Más días → más huevos (DIRECTA)</li>
+                    <li>x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)</li>
+                    <li>$x = 2550$ × 1.$5 \times 1$.5 = 5737.5 $\approx$ 5738 huevos</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 4: Consumo de Concentrado</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> Si 25 cerdos consumen 200 kg de concentrado en 4 días, ¿cuántos kg consumirán 40 cerdos en el mismo período?</p>
+                <div class="input-group">
+                    <label for="e4-type">a) Identifique el tipo de regla de tres:</label>
+                    <input type="text" id="e4-type" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e4-proportion">b) Plantee la proporción:</label>
+                    <textarea id="e4-proportion" placeholder="Ej: $\frac{25}{200}$ = 40/x"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e4-concentrate">c) Calcule la cantidad de concentrado:</label>
+                    <input type="text" id="e4-concentrate" placeholder="En kg">
+                </div>
+                <div class="input-group">
+                    <label for="e4-cost">d) Si el concentrado cuesta $1,250 por kg, ¿cuál será el costo total?</label>
+                    <input type="text" id="e4-cost" placeholder="En pesos">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 5: Ordeño de Vacas</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> 3 ordeñadores completan el ordeño de un hato en 2.5 horas. Si se requiere terminar en 1.5 horas, ¿cuántos ordeñadores se necesitan?</p>
+                <div class="input-group">
+                    <label for="e5-relation">a) Identifique si la relación es directa o inversa:</label>
+                    <input type="text" id="e5-relation" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e5-proportion">b) Plantee y resuelva la regla de tres:</label>
+                    <textarea id="e5-proportion" placeholder="Ej: $\frac{3}{2}$.5 = x/1.5"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e5-ordenadores">c) Número de ordeñadores necesarios:</label>
+                    <input type="text" id="e5-ordenadores" placeholder="Número de ordeñadores">
+                </div>
+                <div class="input-group">
+                    <label for="e5-additional">d) ¿Cuántos ordeñadores adicionales se deben contratar?</label>
+                    <input type="text" id="e5-additional" placeholder="Número adicional">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 6: Producción de Leche</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> 80 vacas producen 1,440 litros de leche en 3 días. ¿Cuántos litros producirán 120 vacas en 5 días?</p>
+                <div class="input-group">
+                    <label for="e6-magnitudes">a) Identifique las magnitudes involucradas:</label>
+                    <textarea id="e6-magnitudes" placeholder="Ej: Vacas, Días, Leche"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e6-relations">b) Determine si cada relación es directa o inversa:</label>
+                    <textarea id="e6-relations" placeholder="Ej: Vacas-Directa, Días-Directa"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e6-proportion">c) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e6-proportion" placeholder="Ej: x/1440 = ($\frac{120}{80}$) × ($\frac{5}{3}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e6-production">d) Producción total (en litros):</label>
+                    <input type="text" id="e6-production" placeholder="Litros de leche">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 7: Tiempo de Pastoreo</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> Un potrero de 3 hectáreas puede alimentar 15 vacas durante 20 días. ¿Durante cuántos días puede alimentar 25 vacas un potrero de 5 hectáreas?</p>
+                <div class="input-group">
+                    <label for="e7-magnitudes">a) Identifique las tres magnitudes:</label>
+                    <textarea id="e7-magnitudes" placeholder="Ej: Hectáreas, Vacas, Días"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e7-relations">b) Determine la relación de cada magnitud con los días:</label>
+                    <textarea id="e7-relations" placeholder="Ej: Hectáreas-Directa, Vacas-Inversa"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e7-proportion">c) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e7-proportion" placeholder="Ej: x/20 = ($\frac{5}{3}$) × ($\frac{15}{25}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e7-days">d) Número de días:</label>
+                    <input type="text" id="e7-days" placeholder="Días">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 8: Mezcla de Alimento</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> Para preparar 500 kg de alimento balanceado se necesitan 3 horas con 2 mezcladores. ¿Cuánto tiempo se necesitará para preparar 800 kg con 3 mezcladores?</p>
+                <div class="input-group">
+                    <label for="e8-kg-relation">a) Analice la relación: más kg → ¿más o menos tiempo?</label>
+                    <input type="text" id="e8-kg-relation" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e8-mezcladores-relation">b) Analice la relación: más mezcladores → ¿más o menos tiempo?</label>
+                    <input type="text" id="e8-mezcladores-relation" placeholder="Directa o Inversa">
+                </div>
+                <div class="input-group">
+                    <label for="e8-proportion">c) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e8-proportion" placeholder="Ej: x/3 = ($\frac{800}{500}$) × ($\frac{2}{3}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e8-time">d) Tiempo necesario (en horas):</label>
+                    <input type="text" id="e8-time" placeholder="Horas">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 9: Transporte de Ganado</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> 5 camiones pueden transportar 150 reses en 3 viajes. ¿Cuántos viajes necesitarán 4 camiones para transportar 200 reses?</p>
+                <div class="input-group">
+                    <label for="e9-relations">a) Identifique si hay relaciones directas o inversas:</label>
+                    <textarea id="e9-relations" placeholder="Ej: Camiones-Inversa, Reses-Directa"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e9-proportion">b) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e9-proportion" placeholder="Ej: x/3 = ($\frac{200}{150}$) × ($\frac{5}{4}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e9-viajes">c) Número de viajes:</label>
+                    <input type="text" id="e9-viajes" placeholder="Viajes">
+                </div>
+                <div class="input-group">
+                    <label for="e9-cost">d) Si cada viaje cuesta $500,000, ¿cuál será el costo total?</label>
+                    <input type="text" id="e9-cost" placeholder="En pesos">
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Ejercicio 10: Producción de Carne</h3>
+            <div class="exercise-content">
+                <p><strong>Problema:</strong> En una planta de procesamiento, 8 trabajadores pueden procesar 240 pollos en 4 horas. ¿Cuántos pollos procesarán 12 trabajadores en 6 horas?</p>
+                <div class="input-group">
+                    <label for="e10-magnitudes">a) Identifique todas las magnitudes:</label>
+                    <textarea id="e10-magnitudes" placeholder="Ej: Trabajadores, Pollos, Horas"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e10-proportion">b) Plantee la regla de tres compuesta:</label>
+                    <textarea id="e10-proportion" placeholder="Ej: x/240 = ($\frac{12}{8}$) × ($\frac{6}{4}$)"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="e10-pollos">c) Número de pollos procesados:</label>
+                    <input type="text" id="e10-pollos" placeholder="Pollos">
+                </div>
+                <div class="input-group">
+                    <label for="e10-difference">d) ¿Cuántos pollos más se procesan respecto al caso inicial?</label>
+                    <input type="text" id="e10-difference" placeholder="Diferencia">
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-section">
+            <h2>Aplicaciones Avanzadas</h2>
+            
+            <div class="case-study">
+                <h3>Ejercicio 11: Planificación de Alimentación</h3>
+                <p><strong>Contexto:</strong> Una finca tiene 50 vacas que consumen 1,000 kg de heno en 10 días. Se comprarán 20 vacas más y se tiene almacenado 2,100 kg de heno.</p>
+                <div class="input-group">
+                    <label for="e11-days">a) ¿Para cuántos días alcanzará el heno almacenado con las 70 vacas?</label>
+                    <input type="text" id="e11-days" placeholder="Días">
+                </div>
+                <div class="input-group">
+                    <label for="e11-more-hay">b) Si se quiere que el heno dure 15 días, ¿cuánto más se debe comprar?</label>
+                    <input type="text" id="e11-more-hay" placeholder="Kg de heno">
+                </div>
+                <div class="input-group">
+                    <label for="e11-cost">c) Si el heno cuesta $800 por kg, ¿cuánto costará el faltante?</label>
+                    <input type="text" id="e11-cost" placeholder="En pesos">
+                </div>
+                <div class="input-group">
+                    <label for="e11-daily-consumption">d) Consumo diario por vaca:</label>
+                    <input type="text" id="e11-daily-consumption" placeholder="Kg por vaca por día">
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>Ejercicio 12: Construcción de Instalaciones</h3>
+                <p><strong>Datos:</strong> 12 trabajadores pueden construir un galpón avícola de 500 $m^{2}$ en 30 días trabajando 8 horas diarias.</p>
+                <div class="input-group">
+                    <label for="e12-days">a) ¿Cuántos días necesitarán 15 trabajadores para construir un galpón de 750 $m^{2}$ trabajando 10 horas diarias?</label>
+                    <input type="text" id="e12-days" placeholder="Días">
+                </div>
+                <div class="input-group">
+                    <label for="e12-workers">b) ¿Cuántos trabajadores se necesitan para terminarlo en 20 días con jornada de 8 horas?</label>
+                    <input type="text" id="e12-workers" placeholder="Trabajadores">
+                </div>
+                <div class="input-group">
+                    <label for="e12-cost">c) Si se paga $50,000 por hora-hombre, ¿cuál es el costo de mano de obra en cada caso?</label>
+                    <input type="text" id="e12-cost" placeholder="Costo total">
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>Ejercicio 13: Fertilización de Pasturas</h3>
+                <p><strong>Datos:</strong> Para fertilizar 20 hectáreas de pastura se necesitan 800 kg de fertilizante. Se aplica cada 45 días durante la época de lluvias.</p>
+                <div class="input-group">
+                    <label for="e13-fertilizer">a) ¿Cuánto fertilizante se necesita para 35 hectáreas?</label>
+                    <input type="text" id="e13-fertilizer" placeholder="Kg de fertilizante">
+                </div>
+                <div class="input-group">
+                    <label for="e13-six-months">b) ¿Cuánto se necesita para 6 meses (180 días)?</label>
+                    <input type="text" id="e13-six-months" placeholder="Kg de fertilizante">
+                </div>
+                <div class="input-group">
+                    <label for="e13-budget">c) Si el fertilizante cuesta $2,500 por kg, calcule el presupuesto semestral:</label>
+                    <input type="text" id="e13-budget" placeholder="Presupuesto en pesos">
+                </div>
+                <div class="input-group">
+                    <label for="e13-hectares">d) ¿Cuántas hectáreas se pueden fertilizar con un presupuesto de $5,000,000 en un ciclo de 45 días?</label>
+                    <input type="text" id="e13-hectares" placeholder="Hectáreas">
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>Ejercicio 14: Rendimiento en Procesamiento</h3>
+                <p><strong>Datos:</strong> Una quesería procesa 600 litros de leche producen 60 kg de queso. El proceso toma 5 horas con 2 queseros.</p>
+                <div class="input-group">
+                    <label for="e14-cheese">a) Si se procesan 1,000 litros, ¿cuánto queso se obtendrá?</label>
+                    <input type="text" id="e14-cheese" placeholder="Kg de queso">
+                </div>
+                <div class="input-group">
+                    <label for="e14-time">b) ¿Cuánto tiempo tomará procesar 1,000 litros con 3 queseros?</label>
+                    <input type="text" id="e14-time" placeholder="Horas">
+                </div>
+                <div class="input-group">
+                    <label for="e14-queseros">c) Si se quiere producir 100 kg de queso en 4 horas, ¿cuántos queseros se necesitan?</label>
+                    <input type="text" id="e14-queseros" placeholder="Queseros">
+                </div>
+                <div class="input-group">
+                    <label for="e14-yield">d) Rendimiento de leche a queso (kg queso / litros leche):</label>
+                    <input type="text" id="e14-yield" placeholder="Rendimiento">
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>Ejercicio 15: Agua para Bebederos</h3>
+                <p><strong>Datos:</strong> 50 cerdos consumen 600 litros de agua en 2 días.</p>
+                <div class="input-group">
+                    <label for="e15-water">a) ¿Cuántos litros consumirán 75 cerdos en 5 días?</label>
+                    <input type="text" id="e15-water" placeholder="Litros de agua">
+                </div>
+                <div class="input-group">
+                    <label for="e15-tank">b) Un tanque tiene 2,000 litros. ¿Para cuántos días alcanza para 100 cerdos?</label>
+                    <input type="text" id="e15-tank" placeholder="Días">
+                </div>
+                <div class="input-group">
+                    <label for="e15-hourly">c) Si el consumo debe ser continuo, ¿cuántos litros por hora se requieren para 100 cerdos?</label>
+                    <input type="text" id="e15-hourly" placeholder="Litros por hora">
+                </div>
+                <div class="input-group">
+                    <label for="e15-daily-per-pig">d) Consumo promedio por cerdo por día:</label>
+                    <input type="text" id="e15-daily-per-pig" placeholder="Litros por cerdo por día">
+                </div>
+            </div>
+        </div>
+
+        <div class="final-project">
+            <h2>Caso: Diseño Completo de Sistema de Producción</h2>
+            <p><strong>Metas de producción mensual:</strong> 15,000 litros de leche y 100 cerdos para sacrificio</p>
+            <p><strong>Datos de referencia:</strong></p>
+            <p><strong>Bovinos:</strong> 20 vacas producen 600 litros/día, consumen 400 kg de forraje/día, requieren 2 hectáreas de potrero, necesitan 1 vaquero por cada 30 vacas</p>
+            <p><strong>Porcinos:</strong> Ciclo de 150 días para alcanzar 110 kg, consumen 3.2 kg de concentrado/día cada uno, requieren 1.5 $m^{2}$ por cerdo, necesitan 1 porquerizo por cada 50 cerdos</p>
+            <p><strong>Costos:</strong> Forraje $600/kg, Concentrado $1,200/kg, Vaquero $1,500,000/mes, Porquerizo $1,400,000/mes, Construcción potrero $8,000,000/hectárea, Construcción porqueriza $250,000/$m^{2}$</p>
+            <p><strong>Precios de venta:</strong> Leche $1,300/litro, Cerdo $650,000/animal</p>
+            
+            <div class="input-group">
+                <label for="fp-vacas">1. Número de vacas necesarias para la meta de leche:</label>
+                <input type="text" id="fp-vacas" placeholder="Vacas">
+            </div>
+            <div class="input-group">
+                <label for="fp-cerdos">2. Número de cerdos en producción simultánea (considere ciclo de 150 días):</label>
+                <input type="text" id="fp-cerdos" placeholder="Cerdos">
+            </div>
+            <div class="input-group">
+                <label for="fp-personal">3. Personal requerido (vaqueros y porquerizos):</label>
+                <input type="text" id="fp-personal" placeholder="Personal">
+            </div>
+            <div class="input-group">
+                <label for="fp-forraje">4. Consumo diario de forraje:</label>
+                <input type="text" id="fp-forraje" placeholder="Kg de forraje">
+            </div>
+            <div class="input-group">
+                <label for="fp-concentrado">5. Consumo diario de concentrado:</label>
+                <input type="text" id="fp-concentrado" placeholder="Kg de concentrado">
+            </div>
+            <div class="input-group">
+                <label for="fp-potreros">6. Área necesaria de potreros:</label>
+                <input type="text" id="fp-potreros" placeholder="Hectáreas">
+            </div>
+            <div class="input-group">
+                <label for="fp-porqueriza">7. Área necesaria de porqueriza:</label>
+                <input type="text" id="fp-porqueriza" placeholder="$m^{2}$">
+            </div>
+            <div class="input-group">
+                <label for="fp-inversion">8. Inversión inicial en infraestructura:</label>
+                <input type="text" id="fp-inversion" placeholder="Pesos">
+            </div>
+            <div class="input-group">
+                <label for="fp-costos">9. Costos operativos mensuales (alimento + personal):</label>
+                <input type="text" id="fp-costos" placeholder="Pesos">
+            </div>
+            <div class="input-group">
+                <label for="fp-ingresos">10. Ingresos mensuales por ventas:</label>
+                <input type="text" id="fp-ingresos" placeholder="Pesos">
+            </div>
+            <div class="input-group">
+                <label for="fp-utilidad">11. Utilidad mensual proyectada:</label>
+                <input type="text" id="fp-utilidad" placeholder="Pesos">
+            </div>
+            <div class="input-group">
+                <label for="fp-roi">12. Retorno de inversión (meses necesarios):</label>
+                <input type="text" id="fp-roi" placeholder="Meses">
+            </div>
+            <div class="input-group">
+                <label for="fp-sensitivity">13. Análisis de sensibilidad: ¿Qué pasa si los precios de venta bajan $15\%$?</label>
+                <textarea id="fp-sensitivity" placeholder="Análisis"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="fp-optimization">14. Propuestas de optimización para mejorar rentabilidad:</label>
+                <textarea id="fp-optimization" placeholder="Propuestas"></textarea>
+            </div>
+        </div>
+
+        <div class="reflection">
+            <h2>Importancia de la Regla de Tres</h2>
+            <p>La regla de tres es una herramienta fundamental en producción pecuaria porque permite:</p>
+            <ul>
+                <li><strong>Planificar recursos:</strong> Calcular cantidades exactas de insumos</li>
+                <li><strong>Optimizar costos:</strong> Escalar operaciones manteniendo proporciones</li>
+                <li><strong>Proyectar resultados:</strong> Estimar producción y rentabilidad</li>
+                <li><strong>Tomar decisiones:</strong> Comparar alternativas con base cuantitativa</li>
+                <li><strong>Gestionar tiempo:</strong> Programar actividades eficientemente</li>
+            </ul>
+            <p>Dominar la regla de tres (simple y compuesta) es esencial para cualquier profesional del sector pecuario, permitiendo resolver situaciones prácticas diarias con precisión matemática.</p>
+        </div>
+
+        <div class="score-section">
+            <h2>Calificación Final</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: $0\%$"></div>
+            </div>
+            <div class="score-display">
+                Puntuación: <span id="score">0</span> / 50 puntos
+            </div>
+            <button class="btn" onclick="calculateScore()">Calcular Calificación</button>
+            <button class="btn btn-secondary" onclick="resetForm()">Reiniciar</button>
+            <div class="feedback" id="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        const exercises = [
+            { id: 'e1-type', points: 1, answer: 'Directa' },
+            { id: 'e1-proportion', points: 2, answer: '$\frac{20}{400}$ = 35/x' },
+            { id: 'e1-result', points: 2, answer: '700' },
+            
+            { id: 'e2-type', points: 1, answer: 'Inversa' },
+            { id: 'e2-proportion', points: 2, answer: '$\frac{4}{6}$ = 6/x' },
+            { id: 'e2-result', points: 2, answer: '4' },
+            
+            { id: 'e3-relations', points: 2, answer: 'Gallinas-Directa, Días-Directa' },
+            { id: 'e3-proportion', points: 2, answer: 'x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)' },
+            { id: 'e3-result', points: 2, answer: '5738' },
+            
+            { id: 'e4-type', points: 1, answer: 'Directa' },
+            { id: 'e4-proportion', points: 2, answer: '$\frac{25}{200}$ = 40/x' },
+            { id: 'e4-concentrate', points: 2, answer: '320' },
+            { id: 'e4-cost', points: 1, answer: '400000' },
+            
+            { id: 'e5-relation', points: 1, answer: 'Inversa' },
+            { id: 'e5-proportion', points: 2, answer: '$\frac{3}{2}$.5 = x/1.5' },
+            { id: 'e5-ordenadores', points: 2, answer: '5' },
+            { id: 'e5-additional', points: 1, answer: '2' },
+            
+            { id: 'e6-magnitudes', points: 1, answer: 'Vacas, Días, Leche' },
+            { id: 'e6-relations', points: 2, answer: 'Vacas-Directa, Días-Directa' },
+            { id: 'e6-proportion', points: 2, answer: 'x/1440 = ($\frac{120}{80}$) × ($\frac{5}{3}$)' },
+            { id: 'e6-production', points: 2, answer: '3600' },
+            
+            { id: 'e7-magnitudes', points: 1, answer: 'Hectáreas, Vacas, Días' },
+            { id: 'e7-relations', points: 2, answer: 'Hectáreas-Directa, Vacas-Inversa' },
+            { id: 'e7-proportion', points: 2, answer: 'x/20 = ($\frac{5}{3}$) × ($\frac{15}{25}$)' },
+            { id: 'e7-days', points: 2, answer: '20' },
+            
+            { id: 'e8-kg-relation', points: 1, answer: 'Directa' },
+            { id: 'e8-mezcladores-relation', points: 1, answer: 'Inversa' },
+            { id: 'e8-proportion', points: 2, answer: 'x/3 = ($\frac{800}{500}$) × ($\frac{2}{3}$)' },
+            { id: 'e8-time', points: 2, answer: '3.2' },
+            
+            { id: 'e9-relations', points: 2, answer: 'Camiones-Inversa, Reses-Directa' },
+            { id: 'e9-proportion', points: 2, answer: 'x/3 = ($\frac{200}{150}$) × ($\frac{5}{4}$)' },
+            { id: 'e9-viajes', points: 2, answer: '5' },
+            { id: 'e9-cost', points: 1, answer: '2500000' },
+            
+            { id: 'e10-magnitudes', points: 1, answer: 'Trabajadores, Pollos, Horas' },
+            { id: 'e10-proportion', points: 2, answer: 'x/240 = ($\frac{12}{8}$) × ($\frac{6}{4}$)' },
+            { id: 'e10-pollos', points: 2, answer: '540' },
+            { id: 'e10-difference', points: 1, answer: '300' },
+            
+            { id: 'e11-days', points: 2, answer: '15' },
+            { id: 'e11-more-hay', points: 2, answer: '700' },
+            { id: 'e11-cost', points: 1, answer: '560000' },
+            { id: 'e11-daily-consumption', points: 1, answer: '2' },
+            
+            { id: 'e12-days', points: 2, answer: '20' },
+            { id: 'e12-workers', points: 2, answer: '18' },
+            { id: 'e12-cost', points: 1, answer: '21600000' },
+            
+            { id: 'e13-fertilizer', points: 2, answer: '1400' },
+            { id: 'e13-six-months', points: 2, answer: '5600' },
+            { id: 'e13-budget', points: 1, answer: '14000000' },
+            { id: 'e13-hectares', points: 2, answer: '125' },
+            
+            { id: 'e14-cheese', points: 2, answer: '100' },
+            { id: 'e14-time', points: 2, answer: '3.33' },
+            { id: 'e14-queseros', points: 2, answer: '4' },
+            { id: 'e14-yield', points: 1, answer: '0.1' },
+            
+            { id: 'e15-water', points: 2, answer: '900' },
+            { id: 'e15-tank', points: 2, answer: '6.67' },
+            { id: 'e15-hourly', points: 2, answer: '20.83' },
+            { id: 'e15-daily-per-pig', points: 1, answer: '6' }
+        ];
+
+        function calculateScore() {
+            let totalScore = 0;
+            let totalPossible = 0;
+            let feedback = '';
+            
+            exercises.forEach(exercise => {
+                const element = document.getElementById(exercise.id);
+                if (element) {
+                    const userAnswer = element.value.trim();
+                    const correctAnswer = exercise.answer;
+                    totalPossible += exercise.points;
+                    
+                    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                        totalScore += exercise.points;
+                    } else {
+                        feedback += `❌ Ejercicio ${exercise.id}: Respuesta incorrecta. Correcto: ${correctAnswer}\n`;
+                    }
+                }
+            });
+            
+            // Calculate percentage for progress bar
+            const percentage = (totalScore / 50) * 100;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            document.getElementById('score').textContent = totalScore;
+            
+            // Show feedback
+            const feedbackElement = document.getElementById('feedback');
+            if (feedback) {
+                feedbackElement.textContent = feedback;
+                feedbackElement.className = 'feedback error';
+            } else {
+                feedbackElement.textContent = '¡Excelente! Todas las respuestas son correctas.';
+                feedbackElement.className = 'feedback success';
+            }
+            feedbackElement.style.display = 'block';
+        }
+
+        function resetForm() {
+            // Clear all inputs
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            
+            // Reset score
+            document.getElementById('score').textContent = '0';
+            document.getElementById('progressFill').style.width = '$0\%$';
+            document.getElementById('feedback').style.display = 'none';
+        }
+
+        // Add enter key support for inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        calculateScore();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
