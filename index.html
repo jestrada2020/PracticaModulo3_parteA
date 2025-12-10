@@ -9,296 +9,479 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            color: #1e293b;
-            line-height: 1.7;
-            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
             min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
         }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
-            padding: 40px;
-            margin-bottom: 30px;
+            padding: 0;
         }
-        
+
         header {
+            padding: 60px 40px 30px;
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 1px solid #e5e5e5;
         }
-        
+
         h1 {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            font-weight: 700;
+            color: #5b6ee1;
+            font-size: 2.2em;
+            margin-bottom: 16px;
+            font-weight: 600;
             letter-spacing: -0.02em;
         }
-        
+
         .subtitle {
-            color: #64748b;
-            font-size: 1.15em;
-            margin-bottom: 10px;
+            color: #666;
+            font-size: 1em;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .subtitle-secondary {
+            color: #888;
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .pdf-button-container {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+
+        .btn-pdf {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.95em;
             font-weight: 500;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #26a69a;
+            color: #ffffff;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(38, 166, 154, 0.3);
         }
-        
-        .objectives {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-            border-left: 4px solid #3b82f6;
-            padding: 25px;
-            margin-bottom: 35px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+
+        .btn-pdf:hover {
+            background: #2bbbad;
+            box-shadow: 0 4px 12px rgba(38, 166, 154, 0.4);
+            transform: translateY(-1px);
         }
-        
-        .objectives h2 {
-            color: #3b82f6;
-            margin-bottom: 18px;
-            font-size: 1.5em;
+
+        .btn-pdf::before {
+            content: "📄";
+            font-size: 1.1em;
+        }
+
+        .pdf-viewer {
+            display: none;
+            margin: 30px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .pdf-viewer.active {
+            display: block;
+        }
+
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        .close-pdf {
+            text-align: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .close-pdf button {
+            padding: 8px 20px;
+            font-size: 0.85em;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-pdf button:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+
+        .learning-objectives,
+        .explanation,
+        .theory-section,
+        .exercise,
+        .advanced-section,
+        .final-project,
+        .reflection,
+        .score-section {
+            padding: 40px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .learning-objectives {
+            background: #e8eaf6;
+            border-left: 4px solid #5b6ee1;
+        }
+
+        .explanation {
+            background: #fff9e6;
+            border-left: 4px solid #ffa726;
+        }
+
+        h2 {
+            color: #5b6ee1;
+            font-size: 1.4em;
+            margin-bottom: 24px;
             font-weight: 600;
         }
-        
-        .objectives ul {
-            list-style-type: none;
+
+        .explanation h2 {
+            color: #ff8f00;
         }
-        
-        .objectives li {
-            margin-bottom: 12px;
-            padding-left: 25px;
+
+        h3 {
+            color: #424242;
+            font-size: 1.1em;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .learning-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .learning-objectives li {
+            margin-bottom: 14px;
+            padding-left: 28px;
             position: relative;
-            color: #1e293b;
+            color: #37474f;
+            font-size: 0.95em;
         }
-        
-        .objectives li:before {
+
+        .learning-objectives li:before {
             content: "✓";
-            color: #3b82f6;
+            color: #5b6ee1;
+            position: absolute;
+            left: 0;
+            font-size: 1.1em;
             font-weight: bold;
+        }
+
+        .explanation p,
+        .reflection p {
+            margin-bottom: 16px;
+            color: #37474f;
+            font-size: 0.95em;
+        }
+
+        .explanation ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .explanation ul li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+            color: #37474f;
+            font-size: 0.95em;
+        }
+
+        .explanation ul li:before {
+            content: "•";
+            color: #ff8f00;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .theory-item {
+            margin-bottom: 32px;
+        }
+
+        .theory-item p,
+        .theory-item ol {
+            color: #616161;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+
+        .theory-item ol {
+            padding-left: 24px;
+        }
+
+        .theory-item li {
+            margin-bottom: 8px;
+        }
+
+        .formula {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 16px 0;
+            text-align: center;
+            border: 1px solid #e5e5e5;
+        }
+
+        .formula p {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .formula strong {
+            color: #5b6ee1;
+        }
+
+        .exercise {
+            margin-bottom: 0;
+            padding: 40px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #ffffff;
+            transition: background-color 0.2s ease;
+        }
+
+        .exercise:hover {
+            background: #fafafa;
+        }
+
+        .exercise-content p,
+        .case-study p {
+            margin-bottom: 24px;
+            color: #616161;
+            font-size: 0.95em;
+        }
+
+        .exercise-steps {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 24px;
+        }
+
+        .exercise-steps ol {
+            padding-left: 24px;
+            color: #616161;
+            font-size: 0.9em;
+        }
+
+        .exercise-steps li {
+            margin-bottom: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #424242;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 0.95em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            background-color: #fafafa;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #5b6ee1;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(91, 110, 225, 0.1);
+        }
+
+        .btn {
+            padding: 12px 28px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            background: #5b6ee1;
+            color: #ffffff;
+        }
+
+        .btn:hover {
+            background: #4a5fd8;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e8e8e8;
+            border-color: #999;
+        }
+
+        .score-section {
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #26a69a;
+            transition: width 0.3s ease;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        .feedback {
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .feedback.success {
+            background: #f5f5f5;
+            color: #212121;
+        }
+
+        .feedback.error {
+            background: #f5f5f5;
+            color: #616161;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .case-study {
+            margin-bottom: 40px;
+        }
+
+        .case-study:last-child {
+            margin-bottom: 0;
+        }
+
+        .reflection ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reflection li {
+            margin-bottom: 16px;
+            padding-left: 20px;
+            position: relative;
+            color: #616161;
+            font-size: 0.95em;
+        }
+
+        .reflection li:before {
+            content: "•";
+            color: #212121;
             position: absolute;
             left: 0;
             font-size: 1.2em;
         }
-        
-        .module-explanation {
-            background: linear-gradient(135deg, #fef3c7 0%, rgba(254, 243, 199, 0.5) 100%);
-            border-left: 4px solid #f59e0b;
-            padding: 25px;
-            margin-bottom: 35px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.08);
-        }
-        
-        .module-explanation h2 {
-            color: #f59e0b;
-            margin-bottom: 18px;
-            font-size: 1.5em;
-            font-weight: 600;
-        }
-        
-        .module-explanation p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-            color: #1e293b;
-        }
-        
-        .exercise {
-            margin-bottom: 40px;
-            padding: 30px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        }
-        
-        .exercise:hover {
-            border-color: #a5b4fc;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
-            transform: translateY(-2px);
-        }
-        
-        .exercise h3 {
-            color: #6366f1;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-            font-weight: 600;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #a5b4fc;
-        }
-        
-        .context, .data, .solution {
-            margin-bottom: 20px;
-            padding: 18px;
-            background-color: #f1f5f9;
-            border-radius: 8px;
-            border-left: 3px solid #10b981;
-        }
-        
-        .context strong, .data strong, .solution strong {
-            color: #10b981;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-        
-        .questions {
-            margin-top: 20px;
-        }
-        
-        .question {
-            margin-bottom: 20px;
-            padding: 18px;
-            background-color: #fafbfc;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .question p {
-            margin-bottom: 12px;
-            font-weight: 500;
-            color: #1e293b;
-        }
-        
-        .answer-input {
-            width: 100%;
-            padding: 14px 18px;
-            font-size: 1.05em;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background-color: #ffffff;
-            font-family: 'Consolas', 'Monaco', monospace;
-        }
-        
-        .answer-input:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-            background-color: #ffffff;
-        }
-        
-        .button {
-            padding: 14px 32px;
-            font-size: 1.05em;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-submit {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-        }
-        
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-        }
-        
-        .btn-reset {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: white;
-        }
-        
-        .btn-reset:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.3);
-        }
-        
-        .button-container {
-            text-align: center;
-            margin: 35px 0;
-        }
-        
-        .results {
-            background: linear-gradient(135deg, #d1fae5 0%, rgba(209, 250, 229, 0.5) 100%);
-            border-left: 4px solid #10b981;
-            padding: 30px;
-            margin-top: 35px;
-            border-radius: 12px;
-            display: none;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
-        }
-        
-        .score {
-            font-size: 2.5em;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .score-pass {
-            color: #10b981;
-        }
-        
-        .score-fail {
-            color: #ef4444;
-        }
-        
-        .feedback {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 1.15em;
-            line-height: 1.6;
-            color: #1e293b;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 2px solid #e2e8f0;
-            color: #64748b;
-            font-size: 0.95em;
-        }
-        
+
         /* Estilos para MathJax/LaTeX */
         .MathJax, .MathJax_Display {
-            font-size: 1.1em !important;
+            font-size: 1.05em !important;
         }
-        
+
         mjx-container {
+            margin: 10px 0 !important;
+        }
+
+        mjx-container[jax="CHTML"][display="true"] {
+            margin: 1.2em 0 !important;
+        }
+
+        .exercise-steps mjx-container {
+            display: inline-block;
+            margin: 4px 8px !important;
+        }
+
+        .formula mjx-container {
             margin: 8px 0 !important;
         }
-        
-        mjx-container[jax="CHTML"][display="true"] {
-            margin: 1em 0 !important;
+
+        .theory-item ol li {
+            line-height: 1.8;
         }
-        
-        .math-inline {
-            color: #6366f1;
-            font-weight: 500;
-        }
-        
+
         @media (max-width: 768px) {
-            .container {
-                padding: 25px 20px;
+            header,
+            .learning-objectives,
+            .explanation,
+            .theory-section,
+            .exercise,
+            .advanced-section,
+            .final-project,
+            .reflection,
+            .score-section {
+                padding: 32px 24px;
             }
-            
+
             h1 {
-                font-size: 2em;
+                font-size: 1.6em;
             }
-            
-            .button {
+
+            .btn {
                 display: block;
                 width: 100%;
-                margin: 10px 0;
+                margin: 8px 0;
             }
         }
     </style>
@@ -325,19 +508,23 @@
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <h1>Tecnología en Producción Pecuaria Sostenible</h1>
-            <div class="subtitle">Matemáticas - Práctica Módulo 3: Regla de Tres Simple y Compuesta</div>
+        <h1>Tecnología en Producción Pecuaria Sostenible</h1>
+        <div class="subtitle">Matemáticas - Práctica Módulo 3</div>
+        <div class="subtitle-secondary">Concepto Básico y Funcional de Matemática Aplicado a Sistemas Pecuarios</div>
+        <div class="pdf-button-container">
+            <button class="btn-pdf" onclick="togglePDF()">Ver Documento de Práctica <em>PDF</em></button>
         </div>
     </header>
+
+    <div class="pdf-viewer" id="pdfViewer">
+        <div class="close-pdf">
+            <button onclick="togglePDF()">✕ Cerrar PDF</button>
+        </div>
+        <iframe src="Practica_Modulo3_Regla_de_Tres.pdf" type="application/pdf"></iframe>
+    </div>
 
     <div class="container">
         <div class="learning-objectives">
@@ -352,52 +539,86 @@
 
         <div class="explanation">
             <h2>Planteo y Solución de Problemas - Regla de Tres</h2>
-            <p>Este módulo desarrolla competencias para plantear y resolver problemas mediante la regla de tres, una herramienta matemática fundamental que resuelve problemas de proporcionalidad de manera ágil y práctica. Existen varios tipos: regla de tres simple directa (cuando las magnitudes son directamente proporcionales), regla de tres simple inversa (cuando son inversamente proporcionales), y regla de tres compuesta (cuando intervienen tres o más magnitudes).</p>
+            <p>Este módulo desarrolla competencias para plantear y resolver problemas mediante la regla de tres, una herramienta matemática fundamental que resuelve problemas de proporcionalidad de manera ágil y práctica.</p>
+
+            <p>Existen varios tipos:</p>
+            <ul>
+                <li><strong>Regla de tres simple directa:</strong> cuando las magnitudes son directamente proporcionales</li>
+                <li><strong>Regla de tres simple inversa:</strong> cuando son inversamente proporcionales</li>
+                <li><strong>Regla de tres compuesta:</strong> cuando intervienen tres o más magnitudes</li>
+            </ul>
+
             <p>En los sistemas productivos pecuarios sostenibles, estas herramientas son elementos básicos para el diseño, mantenimiento y prospección eficiente de procesos. El módulo desarrolla la capacidad de analizar problemas, identificar el tipo de proporcionalidad, plantear la ecuación correspondiente y resolverla sistemáticamente.</p>
+
             <p>Se abordan aplicaciones en cálculo de alimentos, proyecciones de producción, análisis de costos, programación de actividades y optimización de recursos. Los estudiantes aprenderán a traducir problemas del lenguaje natural a planteamientos matemáticos, identificando correctamente las variables y sus relaciones de proporcionalidad.</p>
         </div>
 
         <div class="theory-section">
             <h2>Fundamentos Teóricos</h2>
-            
+
             <div class="theory-item">
                 <h3>Regla de Tres Simple Directa</h3>
                 <p>La regla de tres simple directa se utiliza cuando dos magnitudes son <strong>directamente proporcionales</strong>, es decir, cuando una aumenta, la otra también aumenta en la misma proporción.</p>
+
                 <div class="formula">
-                    <table style="margin: 0 auto;">
-                        <tr>
-                            <td>Magnitud A</td>
-                            <td>Magnitud B</td>
-                        </tr>
-                        <tr>
-                            <td>a₁</td>
-                            <td>b₁</td>
-                        </tr>
-                        <tr>
-                            <td>a₂</td>
-                            <td>x</td>
-                        </tr>
-                    </table>
+                    <p><strong>Esquema:</strong></p>
+                    $$\begin{array}{c|c}
+                    \text{Magnitud A} & \text{Magnitud B} \\
+                    \hline
+                    a_1 & b_1 \\
+                    a_2 & x
+                    \end{array}$$
                 </div>
+
                 <div class="formula">
-                    x = (a₂ × b₁) / a₁
+                    <p><strong>Proporción directa:</strong></p>
+                    $$\frac{a_1}{a_2} = \frac{b_1}{x}$$
+                </div>
+
+                <div class="formula">
+                    <p><strong>Fórmula de solución:</strong></p>
+                    $$x = \frac{a_2 \times b_1}{a_1}$$
                 </div>
             </div>
 
             <div class="theory-item">
                 <h3>Regla de Tres Simple Inversa</h3>
                 <p>Se utiliza cuando dos magnitudes son <strong>inversamente proporcionales</strong>, es decir, cuando una aumenta, la otra disminuye proporcionalmente.</p>
+
                 <div class="formula">
-                    x = (a₁ × b₁) / a₂
+                    <p><strong>Esquema:</strong></p>
+                    $$\begin{array}{c|c}
+                    \text{Magnitud A} & \text{Magnitud B} \\
+                    \hline
+                    a_1 & b_1 \\
+                    a_2 & x
+                    \end{array}$$
+                </div>
+
+                <div class="formula">
+                    <p><strong>Proporción inversa:</strong></p>
+                    $$a_1 \times b_1 = a_2 \times x$$
+                </div>
+
+                <div class="formula">
+                    <p><strong>Fórmula de solución:</strong></p>
+                    $$x = \frac{a_1 \times b_1}{a_2}$$
                 </div>
             </div>
 
             <div class="theory-item">
                 <h3>Regla de Tres Compuesta</h3>
                 <p>Involucra tres o más magnitudes relacionadas. Puede combinar relaciones directas e inversas.</p>
+
+                <div class="formula">
+                    <p><strong>Procedimiento:</strong></p>
+                    $$x = \text{valor conocido} \times \frac{\text{directa}_1}{\text{directa}_2} \times \frac{\text{inversa}_2}{\text{inversa}_1}$$
+                </div>
+
                 <ol>
                     <li>Identificar si cada magnitud es directa o inversa respecto a la incógnita</li>
-                    <li>Construir la proporción según corresponda</li>
+                    <li>Para magnitudes directas: multiplicar por $\displaystyle\frac{\text{nuevo}}{\text{anterior}}$</li>
+                    <li>Para magnitudes inversas: multiplicar por $\displaystyle\frac{\text{anterior}}{\text{nuevo}}$</li>
                     <li>Resolver la ecuación resultante</li>
                 </ol>
             </div>
@@ -423,8 +644,8 @@
             <div class="exercise-steps">
                 <ol>
                     <li>Identifique la relación: más vacas → más forraje (DIRECTA)</li>
-                    <li>Plantee la proporción: $\frac{20}{400}$ = 35/x</li>
-                    <li>Calcule: x = ($35 \times 400$) / 20 = 700 kg</li>
+                    <li>Plantee la proporción: $$\frac{20 \text{ vacas}}{400 \text{ kg}} = \frac{35 \text{ vacas}}{x}$$</li>
+                    <li>Calcule: $$x = \frac{35 \times 400}{20} = \frac{14000}{20} = 700 \text{ kg}$$</li>
                 </ol>
             </div>
         </div>
@@ -439,7 +660,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e2-proportion">b) Plantee y resuelva la regla de tres:</label>
-                    <textarea id="e2-proportion" placeholder="Ej: $\frac{4}{6}$ = 6/x"></textarea>
+                    <textarea id="e2-proportion" placeholder="Ej: 4 × 6 = 6 × x"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e2-result">c) Tiempo requerido (en horas):</label>
@@ -449,8 +670,8 @@
             <div class="exercise-steps">
                 <ol>
                     <li>Identifique la relación: más trabajadores → menos tiempo (INVERSA)</li>
-                    <li>Plantee: $\frac{4}{6}$ = 6/x</li>
-                    <li>Resuelva: x = ($4 \times 6$) / 6 = 4 horas</li>
+                    <li>Plantee: $$4 \text{ trabajadores} \times 6 \text{ h} = 6 \text{ trabajadores} \times x$$</li>
+                    <li>Resuelva: $$x = \frac{4 \times 6}{6} = \frac{24}{6} = 4 \text{ horas}$$</li>
                 </ol>
             </div>
         </div>
@@ -465,7 +686,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e3-proportion">b) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e3-proportion" placeholder="Ej: x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)"></textarea>
+                    <textarea id="e3-proportion" placeholder="Ej: x/2550 = (150/100) × (45/30)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e3-result">c) Cantidad de huevos:</label>
@@ -476,8 +697,8 @@
                 <ol>
                     <li>Más gallinas → más huevos (DIRECTA)</li>
                     <li>Más días → más huevos (DIRECTA)</li>
-                    <li>x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)</li>
-                    <li>$x = 2550$ × 1.$5 \times 1$.5 = 5737.5 $\approx$ 5738 huevos</li>
+                    <li>Proporción: $$\frac{x}{2550} = \frac{150}{100} \times \frac{45}{30}$$</li>
+                    <li>Cálculo: $$x = 2550 \times 1.5 \times 1.5 = 2550 \times 2.25 = 5737.5 \approx 5738 \text{ huevos}$$</li>
                 </ol>
             </div>
         </div>
@@ -492,7 +713,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e4-proportion">b) Plantee la proporción:</label>
-                    <textarea id="e4-proportion" placeholder="Ej: $\frac{25}{200}$ = 40/x"></textarea>
+                    <textarea id="e4-proportion" placeholder="Ej: 25/200 = 40/x"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e4-concentrate">c) Calcule la cantidad de concentrado:</label>
@@ -515,7 +736,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e5-proportion">b) Plantee y resuelva la regla de tres:</label>
-                    <textarea id="e5-proportion" placeholder="Ej: $\frac{3}{2}$.5 = x/1.5"></textarea>
+                    <textarea id="e5-proportion" placeholder="Ej: 3 × 2.5 = x × 1.5"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e5-ordenadores">c) Número de ordeñadores necesarios:</label>
@@ -542,7 +763,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e6-proportion">c) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e6-proportion" placeholder="Ej: x/1440 = ($\frac{120}{80}$) × ($\frac{5}{3}$)"></textarea>
+                    <textarea id="e6-proportion" placeholder="Ej: x/1440 = (120/80) × (5/3)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e6-production">d) Producción total (en litros):</label>
@@ -565,7 +786,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e7-proportion">c) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e7-proportion" placeholder="Ej: x/20 = ($\frac{5}{3}$) × ($\frac{15}{25}$)"></textarea>
+                    <textarea id="e7-proportion" placeholder="Ej: x/20 = (5/3) × (15/25)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e7-days">d) Número de días:</label>
@@ -588,7 +809,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e8-proportion">c) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e8-proportion" placeholder="Ej: x/3 = ($\frac{800}{500}$) × ($\frac{2}{3}$)"></textarea>
+                    <textarea id="e8-proportion" placeholder="Ej: x/3 = (800/500) × (2/3)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e8-time">d) Tiempo necesario (en horas):</label>
@@ -607,7 +828,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e9-proportion">b) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e9-proportion" placeholder="Ej: x/3 = ($\frac{200}{150}$) × ($\frac{5}{4}$)"></textarea>
+                    <textarea id="e9-proportion" placeholder="Ej: x/3 = (200/150) × (5/4)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e9-viajes">c) Número de viajes:</label>
@@ -630,7 +851,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e10-proportion">b) Plantee la regla de tres compuesta:</label>
-                    <textarea id="e10-proportion" placeholder="Ej: x/240 = ($\frac{12}{8}$) × ($\frac{6}{4}$)"></textarea>
+                    <textarea id="e10-proportion" placeholder="Ej: x/240 = (12/8) × (6/4)"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e10-pollos">c) Número de pollos procesados:</label>
@@ -669,9 +890,9 @@
 
             <div class="case-study">
                 <h3>Ejercicio 12: Construcción de Instalaciones</h3>
-                <p><strong>Datos:</strong> 12 trabajadores pueden construir un galpón avícola de 500 $m^{2}$ en 30 días trabajando 8 horas diarias.</p>
+                <p><strong>Datos:</strong> 12 trabajadores pueden construir un galpón avícola de 500 m² en 30 días trabajando 8 horas diarias.</p>
                 <div class="input-group">
-                    <label for="e12-days">a) ¿Cuántos días necesitarán 15 trabajadores para construir un galpón de 750 $m^{2}$ trabajando 10 horas diarias?</label>
+                    <label for="e12-days">a) ¿Cuántos días necesitarán 15 trabajadores para construir un galpón de 750 m² trabajando 10 horas diarias?</label>
                     <input type="text" id="e12-days" placeholder="Días">
                 </div>
                 <div class="input-group">
@@ -753,8 +974,8 @@
             <p><strong>Metas de producción mensual:</strong> 15,000 litros de leche y 100 cerdos para sacrificio</p>
             <p><strong>Datos de referencia:</strong></p>
             <p><strong>Bovinos:</strong> 20 vacas producen 600 litros/día, consumen 400 kg de forraje/día, requieren 2 hectáreas de potrero, necesitan 1 vaquero por cada 30 vacas</p>
-            <p><strong>Porcinos:</strong> Ciclo de 150 días para alcanzar 110 kg, consumen 3.2 kg de concentrado/día cada uno, requieren 1.5 $m^{2}$ por cerdo, necesitan 1 porquerizo por cada 50 cerdos</p>
-            <p><strong>Costos:</strong> Forraje $600/kg, Concentrado $1,200/kg, Vaquero $1,500,000/mes, Porquerizo $1,400,000/mes, Construcción potrero $8,000,000/hectárea, Construcción porqueriza $250,000/$m^{2}$</p>
+            <p><strong>Porcinos:</strong> Ciclo de 150 días para alcanzar 110 kg, consumen 3.2 kg de concentrado/día cada uno, requieren 1.5 m² por cerdo, necesitan 1 porquerizo por cada 50 cerdos</p>
+            <p><strong>Costos:</strong> Forraje $600/kg, Concentrado $1,200/kg, Vaquero $1,500,000/mes, Porquerizo $1,400,000/mes, Construcción potrero $8,000,000/hectárea, Construcción porqueriza $250,000/m²</p>
             <p><strong>Precios de venta:</strong> Leche $1,300/litro, Cerdo $650,000/animal</p>
             
             <div class="input-group">
@@ -783,7 +1004,7 @@
             </div>
             <div class="input-group">
                 <label for="fp-porqueriza">7. Área necesaria de porqueriza:</label>
-                <input type="text" id="fp-porqueriza" placeholder="$m^{2}$">
+                <input type="text" id="fp-porqueriza" placeholder="m²">
             </div>
             <div class="input-group">
                 <label for="fp-inversion">8. Inversión inicial en infraestructura:</label>
@@ -806,7 +1027,7 @@
                 <input type="text" id="fp-roi" placeholder="Meses">
             </div>
             <div class="input-group">
-                <label for="fp-sensitivity">13. Análisis de sensibilidad: ¿Qué pasa si los precios de venta bajan $15\%$?</label>
+                <label for="fp-sensitivity">13. Análisis de sensibilidad: ¿Qué pasa si los precios de venta bajan 15%?</label>
                 <textarea id="fp-sensitivity" placeholder="Análisis"></textarea>
             </div>
             <div class="input-group">
@@ -831,7 +1052,7 @@
         <div class="score-section">
             <h2>Calificación Final</h2>
             <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: $0\%$"></div>
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
             <div class="score-display">
                 Puntuación: <span id="score">0</span> / 50 puntos
@@ -843,51 +1064,64 @@
     </div>
 
     <script>
+        // Función para mostrar/ocultar el visor de PDF
+        function togglePDF() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.classList.toggle('active');
+
+            // Scroll suave al visor cuando se abre
+            if (pdfViewer.classList.contains('active')) {
+                setTimeout(() => {
+                    pdfViewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
         const exercises = [
             { id: 'e1-type', points: 1, answer: 'Directa' },
-            { id: 'e1-proportion', points: 2, answer: '$\frac{20}{400}$ = 35/x' },
+            { id: 'e1-proportion', points: 2, answer: '20/400 = 35/x' },
             { id: 'e1-result', points: 2, answer: '700' },
-            
+
             { id: 'e2-type', points: 1, answer: 'Inversa' },
-            { id: 'e2-proportion', points: 2, answer: '$\frac{4}{6}$ = 6/x' },
+            { id: 'e2-proportion', points: 2, answer: '4 × 6 = 6 × x' },
             { id: 'e2-result', points: 2, answer: '4' },
-            
+
             { id: 'e3-relations', points: 2, answer: 'Gallinas-Directa, Días-Directa' },
-            { id: 'e3-proportion', points: 2, answer: 'x/2550 = ($\frac{150}{100}$) × ($\frac{45}{30}$)' },
+            { id: 'e3-proportion', points: 2, answer: 'x/2550 = (150/100) × (45/30)' },
             { id: 'e3-result', points: 2, answer: '5738' },
-            
+
             { id: 'e4-type', points: 1, answer: 'Directa' },
-            { id: 'e4-proportion', points: 2, answer: '$\frac{25}{200}$ = 40/x' },
+            { id: 'e4-proportion', points: 2, answer: '25/200 = 40/x' },
             { id: 'e4-concentrate', points: 2, answer: '320' },
             { id: 'e4-cost', points: 1, answer: '400000' },
-            
+
             { id: 'e5-relation', points: 1, answer: 'Inversa' },
-            { id: 'e5-proportion', points: 2, answer: '$\frac{3}{2}$.5 = x/1.5' },
+            { id: 'e5-proportion', points: 2, answer: '3 × 2.5 = x × 1.5' },
             { id: 'e5-ordenadores', points: 2, answer: '5' },
             { id: 'e5-additional', points: 1, answer: '2' },
-            
+
             { id: 'e6-magnitudes', points: 1, answer: 'Vacas, Días, Leche' },
             { id: 'e6-relations', points: 2, answer: 'Vacas-Directa, Días-Directa' },
-            { id: 'e6-proportion', points: 2, answer: 'x/1440 = ($\frac{120}{80}$) × ($\frac{5}{3}$)' },
+            { id: 'e6-proportion', points: 2, answer: 'x/1440 = (120/80) × (5/3)' },
             { id: 'e6-production', points: 2, answer: '3600' },
-            
+
             { id: 'e7-magnitudes', points: 1, answer: 'Hectáreas, Vacas, Días' },
             { id: 'e7-relations', points: 2, answer: 'Hectáreas-Directa, Vacas-Inversa' },
-            { id: 'e7-proportion', points: 2, answer: 'x/20 = ($\frac{5}{3}$) × ($\frac{15}{25}$)' },
+            { id: 'e7-proportion', points: 2, answer: 'x/20 = (5/3) × (15/25)' },
             { id: 'e7-days', points: 2, answer: '20' },
-            
+
             { id: 'e8-kg-relation', points: 1, answer: 'Directa' },
             { id: 'e8-mezcladores-relation', points: 1, answer: 'Inversa' },
-            { id: 'e8-proportion', points: 2, answer: 'x/3 = ($\frac{800}{500}$) × ($\frac{2}{3}$)' },
+            { id: 'e8-proportion', points: 2, answer: 'x/3 = (800/500) × (2/3)' },
             { id: 'e8-time', points: 2, answer: '3.2' },
-            
+
             { id: 'e9-relations', points: 2, answer: 'Camiones-Inversa, Reses-Directa' },
-            { id: 'e9-proportion', points: 2, answer: 'x/3 = ($\frac{200}{150}$) × ($\frac{5}{4}$)' },
+            { id: 'e9-proportion', points: 2, answer: 'x/3 = (200/150) × (5/4)' },
             { id: 'e9-viajes', points: 2, answer: '5' },
             { id: 'e9-cost', points: 1, answer: '2500000' },
-            
+
             { id: 'e10-magnitudes', points: 1, answer: 'Trabajadores, Pollos, Horas' },
-            { id: 'e10-proportion', points: 2, answer: 'x/240 = ($\frac{12}{8}$) × ($\frac{6}{4}$)' },
+            { id: 'e10-proportion', points: 2, answer: 'x/240 = (12/8) × (6/4)' },
             { id: 'e10-pollos', points: 2, answer: '540' },
             { id: 'e10-difference', points: 1, answer: '300' },
             
@@ -962,7 +1196,7 @@
             
             // Reset score
             document.getElementById('score').textContent = '0';
-            document.getElementById('progressFill').style.width = '$0\%$';
+            document.getElementById('progressFill').style.width = '0%';
             document.getElementById('feedback').style.display = 'none';
         }
 
