@@ -442,23 +442,43 @@
 
         mjx-container {
             margin: 10px 0 !important;
+            display: inline-block;
         }
 
-        mjx-container[jax="CHTML"][display="true"] {
+        mjx-container[jax="CHTML"][display="true"],
+        mjx-container[display="true"] {
             margin: 1.2em 0 !important;
+            display: block !important;
+            text-align: center;
         }
 
         .exercise-steps mjx-container {
-            display: inline-block;
             margin: 4px 8px !important;
         }
 
         .formula mjx-container {
-            margin: 8px 0 !important;
+            margin: 12px auto !important;
         }
 
         .theory-item ol li {
-            line-height: 1.8;
+            line-height: 2;
+            margin-bottom: 12px;
+        }
+
+        .theory-item ol li mjx-container {
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+
+        /* Asegurar que las fracciones se vean correctamente */
+        mjx-mfrac {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Mejorar visualización de texto en ecuaciones */
+        mjx-mtext {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
         }
 
         @media (max-width: 768px) {
@@ -490,20 +510,29 @@
     <script>
         MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\(', '\)']],
-                displayMath: [['$$', '$$'], ['\[', '\]']],
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true,
                 packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
             },
             svg: {
                 fontCache: 'global',
-                scale: 1.1
+                scale: 1.15,
+                minScale: 0.5,
+                matchFontHeight: true
             },
             options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoreHtmlClass: 'tex2jax_ignore',
                 processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        console.log('MathJax renderizado completado');
+                    });
+                }
             }
         };
     </script>
@@ -611,16 +640,22 @@
                 <p>Involucra tres o más magnitudes relacionadas. Puede combinar relaciones directas e inversas.</p>
 
                 <div class="formula">
-                    <p><strong>Procedimiento:</strong></p>
-                    $$x = \text{valor conocido} \times \frac{\text{directa}_1}{\text{directa}_2} \times \frac{\text{inversa}_2}{\text{inversa}_1}$$
+                    <p><strong>Procedimiento general:</strong></p>
+                    <ol>
+                        <li>Identificar si cada magnitud es directa o inversa respecto a la incógnita</li>
+                        <li>Para magnitudes directas: multiplicar por la razón $\frac{\text{nuevo valor}}{\text{valor anterior}}$</li>
+                        <li>Para magnitudes inversas: multiplicar por la razón $\frac{\text{valor anterior}}{\text{nuevo valor}}$</li>
+                        <li>Resolver la ecuación resultante</li>
+                    </ol>
                 </div>
 
-                <ol>
-                    <li>Identificar si cada magnitud es directa o inversa respecto a la incógnita</li>
-                    <li>Para magnitudes directas: multiplicar por $\displaystyle\frac{\text{nuevo}}{\text{anterior}}$</li>
-                    <li>Para magnitudes inversas: multiplicar por $\displaystyle\frac{\text{anterior}}{\text{nuevo}}$</li>
-                    <li>Resolver la ecuación resultante</li>
-                </ol>
+                <div class="formula">
+                    <p><strong>Ejemplo de fórmula:</strong></p>
+                    $$x = V_0 \times \frac{d_1}{d_2} \times \frac{i_2}{i_1}$$
+                    <p style="font-size: 0.85em; color: #666; margin-top: 8px;">
+                        Donde $V_0$ es el valor conocido, $d$ representa magnitudes directas e $i$ representa magnitudes inversas
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -634,7 +669,7 @@
                 </div>
                 <div class="input-group">
                     <label for="e1-proportion">b) Plantee la proporción:</label>
-                    <textarea id="e1-proportion" placeholder="Ej: $\frac{20}{400}$ = 35/x"></textarea>
+                    <textarea id="e1-proportion" placeholder="Ej: 20/400 = 35/x"></textarea>
                 </div>
                 <div class="input-group">
                     <label for="e1-result">c) Calcule la cantidad de forraje:</label>
@@ -644,8 +679,8 @@
             <div class="exercise-steps">
                 <ol>
                     <li>Identifique la relación: más vacas → más forraje (DIRECTA)</li>
-                    <li>Plantee la proporción: $$\frac{20 \text{ vacas}}{400 \text{ kg}} = \frac{35 \text{ vacas}}{x}$$</li>
-                    <li>Calcule: $$x = \frac{35 \times 400}{20} = \frac{14000}{20} = 700 \text{ kg}$$</li>
+                    <li>Plantee la proporción: $$\frac{20\text{ vacas}}{400\text{ kg}} = \frac{35\text{ vacas}}{x}$$</li>
+                    <li>Calcule: $$x = \frac{35 \times 400}{20} = \frac{14000}{20} = 700\text{ kg}$$</li>
                 </ol>
             </div>
         </div>
@@ -670,8 +705,8 @@
             <div class="exercise-steps">
                 <ol>
                     <li>Identifique la relación: más trabajadores → menos tiempo (INVERSA)</li>
-                    <li>Plantee: $$4 \text{ trabajadores} \times 6 \text{ h} = 6 \text{ trabajadores} \times x$$</li>
-                    <li>Resuelva: $$x = \frac{4 \times 6}{6} = \frac{24}{6} = 4 \text{ horas}$$</li>
+                    <li>Plantee: $$4\text{ trabajadores} \times 6\text{ h} = 6\text{ trabajadores} \times x$$</li>
+                    <li>Resuelva: $$x = \frac{4 \times 6}{6} = \frac{24}{6} = 4\text{ horas}$$</li>
                 </ol>
             </div>
         </div>
@@ -698,7 +733,7 @@
                     <li>Más gallinas → más huevos (DIRECTA)</li>
                     <li>Más días → más huevos (DIRECTA)</li>
                     <li>Proporción: $$\frac{x}{2550} = \frac{150}{100} \times \frac{45}{30}$$</li>
-                    <li>Cálculo: $$x = 2550 \times 1.5 \times 1.5 = 2550 \times 2.25 = 5737.5 \approx 5738 \text{ huevos}$$</li>
+                    <li>Cálculo: $$x = 2550 \times 1.5 \times 1.5 = 2550 \times 2.25 = 5737.5 \approx 5738\text{ huevos}$$</li>
                 </ol>
             </div>
         </div>
@@ -1211,6 +1246,13 @@
                     }
                 });
             });
+
+            // Forzar re-renderizado de MathJax después de cargar la página
+            if (window.MathJax) {
+                window.MathJax.typesetPromise().then(() => {
+                    console.log('MathJax re-renderizado completado');
+                }).catch((err) => console.log('Error en MathJax:', err));
+            }
         });
     </script>
 </body>
